@@ -17,8 +17,6 @@ public class UploadService {
         this.servletContext = servletContext;
     }
 
-    String finalFile;
-
     public String handleSaveUploadService(MultipartFile file, String target) {
         try {
             byte[] bytes = file.getBytes();
@@ -30,17 +28,16 @@ public class UploadService {
                 dir.mkdirs();
 
             // Create the file on server
-            finalFile = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            String finalFile = System.currentTimeMillis() + "-" + file.getOriginalFilename();
             File serverFile = new File(dir.getAbsolutePath() + File.separator + finalFile);
 
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));
             stream.write(bytes);
             stream.close();
-
+            return finalFile;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return finalFile;
     }
 }
