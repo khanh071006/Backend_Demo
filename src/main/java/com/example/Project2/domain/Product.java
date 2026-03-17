@@ -18,6 +18,7 @@ public class Product {
     private double price;
     private String image;
     private String description;
+    private String detailDesc;
     private String shortDesc;
     private long quantity;
     private long sold;
@@ -102,6 +103,14 @@ public class Product {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public String getDetailDesc() {
+        return detailDesc;
+    }
+
+    public void setDetailDesc(String detailDesc) {
+        this.detailDesc = detailDesc;
     }
 
     @Override
