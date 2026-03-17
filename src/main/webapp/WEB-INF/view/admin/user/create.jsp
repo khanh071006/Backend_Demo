@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--@elvariable id="newUser" type="com.example.Project2.domain.User"--%>
 
 
 <head>
@@ -46,7 +47,8 @@
 
                             <h3>Create A User</h3>
                             <hr/>
-                            <form:form action="/admin/user/create" method="post" modelAttribute="newUser">
+                            <form:form action="/admin/user/create" method="post" modelAttribute="newUser"
+                                       enctype="multipart/form-data">
                                 <div class="row g-3">
                                     <div class="mb-3 col-12 col-md-6">
                                         <label class="form-label">Email address:</label>
@@ -75,16 +77,17 @@
 
                                     <div class="mb-3 col-12 col-md-6">
                                         <label class="form-label">ROLE:</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option value="ADMIN">ADMIN</option>
-                                            <option value="USER">USER</option>
-                                        </select>
+                                        <form:select class="form-select" aria-label="Role" path="role.id">
+                                            <form:option value="1">ADMIN</form:option>
+                                            <form:option value="2">USER</form:option>
+                                        </form:select>
                                     </div>
 
                                     <div class="mb-3 col-12 col-md-6">
                                         <label for="formFile" class="form-label">Avatar</label>
                                         <input class="form-control" type="file" id="avatarFile"
-                                               accept="image/png, image/jpeg, image/jpg"/>
+                                               accept="image/png, image/jpeg, image/jpg"
+                                               name="imageFile"/>
                                     </div>
 
                                     <div class="mb-3 col-12">

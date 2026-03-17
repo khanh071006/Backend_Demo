@@ -1,60 +1,68 @@
 package com.example.Project2.web.admin;
 
 import com.example.Project2.domain.User;
+import com.example.Project2.service.UploadService;
 import com.example.Project2.service.UserService;
+import jakarta.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Controller
 public class UserController {
     private UserService userService;
+    private UploadService uploadService;
 
-    public UserController(UserService userService) {
+
+    public UserController(UserService userService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @GetMapping("/admin/user/create")
-    public String handleCreate(Model model){
-        model.addAttribute("newUser",new User());
+    public String handleCreate(Model model) {
+        model.addAttribute("newUser", new User());
         return this.userService.handleCreate();
     }
 
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User output){
+    public String createUserPage(Model model, @ModelAttribute("newUser") User output, @RequestParam("imageFile") MultipartFile file) {
         System.out.println(output);
         this.userService.userHandleSave(output);
+        String finalFile = this.uploadService.handleSaveUploadService(file, "avatar");
         return this.userService.userCreatePage();
+
     }
 
     @GetMapping("/admin/user")
-    public String viewTable(Model model){
+    public String viewTable(Model model) {
         List<User> persons = this.userService.getAllUser();
         model.addAttribute("persons", persons);
         return this.userService.ViewTable();
     }
 
     @GetMapping("/admin/users/{id}")
-    public String ViewDetailUser(Model model, @PathVariable long id){
+    public String ViewDetailUser(Model model, @PathVariable long id) {
         System.out.println(id);
         User dataView = this.userService.GetAllUserById(id);
-        model.addAttribute("user",dataView);
+        model.addAttribute("user", dataView);
         return "admin/user/detail";
     }
 
     @GetMapping("/admin/user/update/{id}")
-    public String UpdateUser(Model model, @PathVariable long id){
+    public String UpdateUser(Model model, @PathVariable long id) {
         User currentUser = this.userService.GetAllUserById(id);
 
-        model.addAttribute("newUser",currentUser);
+        model.addAttribute("newUser", currentUser);
 
         return this.userService.handleUpdate();
     }
 
     @PostMapping("/admin/user/update")
-    public String updateUser(Model model, @ModelAttribute("newUser") User output){
+    public String updateUser(Model model, @ModelAttribute("newUser") User output) {
         User currentUser = this.userService.GetAllUserById(output.getId());
         currentUser.setAddress(output.getAddress());
         currentUser.setFullName(output.getFullName());
@@ -65,16 +73,16 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/delete/{id}")
-    public String DeleteUser(Model model, @PathVariable long id){
+    public String DeleteUser(Model model, @PathVariable long id) {
         User currentUser = this.userService.GetAllUserById(id);
 
-        model.addAttribute("newUser",currentUser);
+        model.addAttribute("newUser", currentUser);
 
         return this.userService.handleDelete();
     }
 
     @PostMapping("/admin/user/delete")
-    public String deleteUser(Model model, @ModelAttribute("newUser") User output){
+    public String deleteUser(Model model, @ModelAttribute("newUser") User output) {
         this.userService.userDelete(output.getId());
         return "redirect:/admin/user";
     }
