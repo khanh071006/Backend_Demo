@@ -1,17 +1,17 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Khanh Dong Gia - Dự án laptopshop" />
-    <meta name="author" content="Khanh Dong Gia" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Khanh Dong Gia - Dự án laptopshop"/>
+    <meta name="author" content="Khanh Dong Gia"/>
     <title>Dashboard - Khanh Dong Gia</title>
-    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -36,12 +36,13 @@
                                 <a href="/admin/user/create" class="btn btn-primary">Create A User</a>
                             </div>
                             <hr/>
-                            <table class="table table-hover">
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Full Name</th>
+                                    <th scope="col">Role</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -51,11 +52,13 @@
                                         <td>${person.id}</td>
                                         <td>${person.email}</td>
                                         <td>${person.fullName}</td>
+                                        <td>${person.role.name}</td>
                                         <td>
                                             <div class="d-flex justify-content-start">
                                                 <a href="/admin/users/${person.id}" class="btn btn-success">View</a>
                                                 <a href="/admin/user/update/${person.id}" class="btn btn-warning mx-3">Update</a>
-                                                <a href="/admin/user/delete/${person.id}" class="btn btn-danger">Delete</a>
+                                                <a href="/admin/user/delete/${person.id}"
+                                                   class="btn btn-danger">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
