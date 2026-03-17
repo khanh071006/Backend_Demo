@@ -4,6 +4,7 @@ import com.example.Project2.domain.User;
 import com.example.Project2.service.UploadService;
 import com.example.Project2.service.UserService;
 import jakarta.servlet.ServletContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,13 @@ import java.util.List;
 public class UserController {
     private UserService userService;
     private UploadService uploadService;
+    private PasswordEncoder passwordEncoder;
 
 
-    public UserController(UserService userService, UploadService uploadService) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/admin/user/create")
@@ -30,9 +33,12 @@ public class UserController {
 
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") User output, @RequestParam("imageFile") MultipartFile file) {
-        System.out.println(output);
-        this.userService.userHandleSave(output);
         String finalFile = this.uploadService.handleSaveUploadService(file, "avatar");
+        String hashPassword = this.passwordEncoder.encode(output.getPassword());
+
+        output.setPassword(hashPassword);
+        output.setAvatar(finalFile);
+        this.userService.userHandleSave(output);
         return this.userService.userCreatePage();
 
     }
