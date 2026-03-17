@@ -10,4 +10,9 @@ public class HomePageController {
     public String getHomePage() {
         return "client/homepage/show";
     }
+
+    @GetMapping("/product/{id}")
+    public String getProductDetail() {
+        return "client/product/detail";
+    }
 }
