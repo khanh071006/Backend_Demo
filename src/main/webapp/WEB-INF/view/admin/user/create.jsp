@@ -52,12 +52,16 @@
                                 <div class="row g-3">
                                     <div class="mb-3 col-12 col-md-6">
                                         <label class="form-label">Email address:</label>
-                                        <form:input type="email" class="form-control" path="email"/>
+                                        <form:input type="email" class="form-control" path="email"
+                                                    cssErrorClass="is-invalid form-control"/>
+                                        <form:errors cssClass="invalid-feedback" path="email"/>
                                     </div>
 
                                     <div class="mb-3 col-12 col-md-6">
                                         <label class="form-label">Password:</label>
-                                        <form:input type="password" class="form-control" path="password"/>
+                                        <form:input type="password" class="form-control" path="password"
+                                                    cssErrorClass="is-invalid form-control"/>
+                                        <form:errors cssClass="invalid-feedback" path="password"/>
                                     </div>
 
                                     <div class="mb-3 col-12 col-md-6">
@@ -67,7 +71,9 @@
 
                                     <div class="mb-3 col-12 col-md-6">
                                         <label class="form-label">Full Name:</label>
-                                        <form:input type="text" class="form-control" path="fullName"/>
+                                        <form:input type="text" class="form-control" path="fullName"
+                                                    cssErrorClass="is-invalid form-control"/>
+                                        <form:errors cssClass="invalid-feedback" path="fullName"/>
                                     </div>
 
                                     <div class="mb-3 col-12 col-md-12">

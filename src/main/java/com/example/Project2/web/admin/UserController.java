@@ -4,9 +4,12 @@ import com.example.Project2.domain.User;
 import com.example.Project2.service.UploadService;
 import com.example.Project2.service.UserService;
 import jakarta.servlet.ServletContext;
+import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +35,18 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User output, @RequestParam("imageFile") MultipartFile file) {
+    public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User output,
+                                 BindingResult newUserBindingResult,
+                                 @RequestParam("imageFile") MultipartFile file) {
+
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println("---\n" + error.getField() + " - " + error.getDefaultMessage());
+        }
+
+        if (newUserBindingResult.hasErrors()) {
+            return "admin/user/create";
+        }
         String finalFile = this.uploadService.handleSaveUploadService(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(output.getPassword());
 
