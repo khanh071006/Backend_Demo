@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--@elvariable id="newProduct" type="com.example.Project2.domain.Product"--%>
 
 <head>
     <meta charset="utf-8"/>
@@ -42,7 +45,26 @@
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
-
+                                <tbody>
+                                <c:forEach var="product" items="${allProduct}">
+                                    <tr>
+                                        <th>${product.id}</th>
+                                        <td>${product.name}</td>
+                                        <td>${product.price}</td>
+                                        <td>${product.factory}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <a href="/admin/product/detail/${product.id}"
+                                                   class="btn btn-success">View</a>
+                                                <a href="/admin/product/update/${product.id}"
+                                                   class="btn btn-warning mx-3">Update</a>
+                                                <a href="/admin/product/delete/${product.id}"
+                                                   class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
                             </table>
                         </div>
                     </div>

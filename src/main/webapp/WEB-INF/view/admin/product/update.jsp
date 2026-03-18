@@ -45,11 +45,17 @@
                     <div class="row">
                         <div class="col-md-6 col-12 mx-auto">
 
-                            <h3>Create A Product</h3>
+                            <h3>Update A Product</h3>
                             <hr/>
-                            <form:form action="/admin/product/create" method="post" modelAttribute="newProduct"
+                            <form:form action="/admin/product/update" method="post" modelAttribute="newProduct"
                                        enctype="multipart/form-data">
+
                                 <div class="row g-3">
+                                    <div class="mb-3 col-12 col-md-6" style="display: none">
+                                        <label class="form-label">ID:</label>
+                                        <form:input type="text" class="form-control" path="id"/>
+                                    </div>
+
                                     <div class="mb-3 col-12 col-md-6">
                                         <label class="form-label">Name:</label>
                                         <form:input type="text" class="form-control" path="name"/>

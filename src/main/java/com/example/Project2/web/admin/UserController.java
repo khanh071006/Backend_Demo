@@ -66,7 +66,6 @@ public class UserController {
 
     @GetMapping("/admin/users/{id}")
     public String ViewDetailUser(Model model, @PathVariable long id) {
-        System.out.println(id);
         User dataView = this.userService.GetAllUserById(id);
         model.addAttribute("user", dataView);
         return "admin/user/detail";
