@@ -17,7 +17,11 @@ public class Product {
     private String name;
     private double price;
     private String image;
+
+
     private String description;
+
+    @Column(columnDefinition = "TEXT")
     private String detailDesc;
     private String shortDesc;
     private long quantity;
