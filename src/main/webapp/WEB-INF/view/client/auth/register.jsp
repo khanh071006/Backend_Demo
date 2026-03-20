@@ -48,7 +48,9 @@
                                     </div>
                                     <div class="form-floating mb-3">
                                         <form:input class="form-control" id="inputEmail" type="email"
-                                                    placeholder="name@example.com" path="email"/>
+                                                    placeholder="name@example.com" path="email"
+                                                    cssErrorClass="is-invalid form-control"/>
+                                        <form:errors path="email" cssClass="invalid-feedback"/>
                                         <label for="inputEmail">Email address</label>
                                     </div>
                                     <div class="row mb-3">
@@ -65,7 +67,9 @@
                                                 <form:input class="form-control" id="inputPasswordConfirm"
                                                             type="password"
                                                             placeholder="Confirm password"
-                                                            path="comfirmPassword"/>
+                                                            path="confirmPassword"
+                                                            cssErrorClass="is-invalid form-control"/>
+                                                <form:errors path="confirmPassword" cssClass="invalid-feedback"/>
                                                 <label for="inputPasswordConfirm">Confirm Password</label>
                                             </div>
                                         </div>

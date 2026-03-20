@@ -9,18 +9,22 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
-        User save(User in4mation);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User save(User in4mation);
 
-        List<User> findByEmailAndPassword(String email,String password);
+    List<User> findByEmailAndPassword(String email, String password);
 
-        List<User> findByEmail(String email);
+    List<User> findByEmail(String email);
 
-        List<User> findAllByOrderByIdAsc();
+    List<User> findAllByOrderByIdAsc();
 
-        User findById(long id);
+    User findById(long id);
 
-        void deleteById(long id);
+    void deleteById(long id);
+
+    boolean existsUserByEmail(String email);
+
+    User getUserByEmail(String email);
 }
 
 

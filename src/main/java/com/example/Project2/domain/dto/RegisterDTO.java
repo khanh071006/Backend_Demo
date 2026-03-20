@@ -1,12 +1,22 @@
 package com.example.Project2.domain.dto;
 
 
+import com.example.Project2.service.validator.RegisterChecked;
+import com.example.Project2.service.validator.StrongPassword;
+import jakarta.validation.constraints.Email;
+
+
+@RegisterChecked
 public class RegisterDTO {
     private String firstName;
     private String lastName;
+
+    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @StrongPassword
     private String password;
-    private String comfirmPassword;
+    private String confirmPassword;
 
     public String getFirstName() {
         return firstName;
@@ -40,12 +50,12 @@ public class RegisterDTO {
         this.password = password;
     }
 
-    public String getComfirmPassword() {
-        return comfirmPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setComfirmPassword(String comfirmPassword) {
-        this.comfirmPassword = comfirmPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     @Override
@@ -55,7 +65,7 @@ public class RegisterDTO {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", comfirmPassword='" + comfirmPassword + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
                 '}';
     }
 }

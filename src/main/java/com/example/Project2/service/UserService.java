@@ -16,38 +16,47 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String handleCreate(){
+    public String handleCreate() {
         return "admin/user/create";
     }
 
-    public String handleUpdate(){
+    public String handleUpdate() {
         return "admin/user/update";
     }
 
-    public String handleDelete(){
+    public String handleDelete() {
         return "admin/user/delete";
     }
-    public String userCreatePage(){
+
+    public String userCreatePage() {
         return "redirect:/admin/user";
     }
 
-    public User userHandleSave(User user){
+    public User userHandleSave(User user) {
         return this.userRepository.save(user);
     }
 
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return this.userRepository.findAllByOrderByIdAsc();
     }
 
-    public User GetAllUserById(long id){
+    public User GetAllUserById(long id) {
         return this.userRepository.findById(id);
     }
 
-    public String ViewTable(){
+    public String ViewTable() {
         return "admin/user/show";
     }
 
-    public void userDelete(long id){
+    public void userDelete(long id) {
         this.userRepository.deleteById(id);
+    }
+
+    public boolean checkExistEmail(String email) {
+        return this.userRepository.existsUserByEmail(email);
+    }
+
+    public User getUserByEmail(String email) {
+        return this.userRepository.getUserByEmail(email);
     }
 }
