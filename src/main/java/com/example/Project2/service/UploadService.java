@@ -12,6 +12,7 @@ import java.io.IOException;
 @Service
 public class UploadService {
     private final ServletContext servletContext;
+    String finalFile;
 
     public UploadService(ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -29,16 +30,17 @@ public class UploadService {
                 dir.mkdirs();
 
             // Create the file on server
-            String finalFile = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            finalFile = System.currentTimeMillis() + "-" + file.getOriginalFilename();
             File serverFile = new File(dir.getAbsolutePath() + File.separator + finalFile);
 
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));
             stream.write(bytes);
             stream.close();
-            return finalFile;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return finalFile;
     }
 }

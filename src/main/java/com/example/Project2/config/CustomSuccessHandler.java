@@ -1,10 +1,13 @@
 package com.example.Project2.config;
 
 
+import com.example.Project2.domain.User;
+import com.example.Project2.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -20,6 +23,10 @@ import java.util.Map;
 
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    @Autowired
+    private UserService userService;
+
 
     protected String determineTargetUrl(final Authentication authentication) {
 
@@ -43,6 +50,13 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             HttpServletResponse response,
             Authentication authentication
     ) throws IOException {
+        String email = authentication.getName();
+        User user = userService.getUserByEmail(email);
+
+        HttpSession session = request.getSession(false);
+        session.setAttribute("fullName", user.getFullName());
+        session.setAttribute("avatar", user.getAvatar());
+
 
         String targetUrl = determineTargetUrl(authentication);
 

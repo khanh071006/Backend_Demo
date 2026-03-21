@@ -23,8 +23,23 @@
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+
+
                             <div class="card-body">
+                                <c:if test="${param.error != null}">
+                                    <div class="my-2" style="color: red;">
+                                        Invalid username or password.
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${param.logout != null}">
+                                    <div class="my-2" style="color: green;">
+                                        Logout successful.
+                                    </div>
+                                </c:if>
+
                                 <form method="post" action="/login">
+
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputEmail" type="email"
                                                placeholder="name@example.com"
