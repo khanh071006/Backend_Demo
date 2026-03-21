@@ -27,9 +27,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Email not found");
         }
-
+        System.out.println(user.getRole().getName());
         return new User(user.getEmail(),
                 user.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority("ROLE_NAME")));
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName())));
     }
 }

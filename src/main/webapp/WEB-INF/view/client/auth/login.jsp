@@ -1,3 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,15 +24,17 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                             <div class="card-body">
-                                <form>
+                                <form method="post" action="/login">
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputEmail" type="email"
-                                               placeholder="name@example.com"/>
+                                               placeholder="name@example.com"
+                                               name="username"/>
                                         <label for="inputEmail">Email address</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputPassword" type="password"
-                                               placeholder="Password"/>
+                                               placeholder="Password"
+                                               name="password"/>
                                         <label for="inputPassword">Password</label>
                                     </div>
                                     <div class="mt-4 mb-0">
@@ -36,6 +42,8 @@
                                             <button class="btn btn-primary btn-block">Login</button>
                                         </div>
                                     </div>
+
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 </form>
                             </div>
                             <div class="card-footer text-center py-3">
