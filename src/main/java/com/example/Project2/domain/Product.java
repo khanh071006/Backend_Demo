@@ -14,6 +14,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetail;
 
+    @OneToMany(mappedBy = "product")
+    private List<CartDetail> cartDetails;
+
     private String name;
     private double price;
     private String image;
@@ -115,6 +118,22 @@ public class Product {
 
     public void setDetailDesc(String detailDesc) {
         this.detailDesc = detailDesc;
+    }
+
+    public List<OrderDetail> getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(List<OrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
+    }
+
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
+
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
     }
 
     @Override

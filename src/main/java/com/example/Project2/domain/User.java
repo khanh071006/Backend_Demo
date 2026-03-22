@@ -38,6 +38,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> order;
 
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
     public List<Order> getOrder() {
         return order;
     }
@@ -108,6 +111,14 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override
