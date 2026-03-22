@@ -56,7 +56,10 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = request.getSession(false);
         session.setAttribute("fullName", user.getFullName());
         session.setAttribute("avatar", user.getAvatar());
-
+        session.setAttribute("id", user.getId());
+        session.setAttribute("email", user.getEmail());
+        long sum = user.getCart().getSum();
+        session.setAttribute("sum", sum);
 
         String targetUrl = determineTargetUrl(authentication);
 

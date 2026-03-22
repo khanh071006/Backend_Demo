@@ -39,7 +39,7 @@ public class SecurityConfig {
 
         return authProvider;
     }
-    
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -59,6 +59,8 @@ public class SecurityConfig {
                         .requestMatchers("/register", "/", "/login", "/client/**", "/css/**", "/js/**", "/images/**", "/product/**").permitAll()
 
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        .requestMatchers("/add-product-to-cart/**").hasRole("USER")
                         .anyRequest().authenticated())
                 .rememberMe((rememberMe) -> rememberMe
                         .rememberMeServices(rememberMeServices())

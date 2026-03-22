@@ -4,6 +4,8 @@ import com.example.Project2.domain.Product;
 import com.example.Project2.domain.User;
 import com.example.Project2.service.Product.ProductService;
 import com.example.Project2.service.UploadService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -93,5 +95,13 @@ public class ProductController {
         return "redirect:/admin/product";
     }
 
+    @PostMapping("/add-product-to-cart/{id}")
+    public String addProductToCart(@PathVariable long id, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
 
+        this.productService.handleAddProductToCart(id, email, session);
+        model.addAttribute("sum", session.getAttribute("sum"));
+        return "redirect:/";
+    }
 }
