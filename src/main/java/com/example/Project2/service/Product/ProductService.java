@@ -68,6 +68,7 @@ public class ProductService {
                     currentCartDetail.setQuanlity(1);
                     session.setAttribute("sum", cart.getSum() + 1);
                     cart.setSum(cart.getSum() + 1);
+                    this.cartRepository.save(cart);
                 } else {
                     currentCartDetail.setQuanlity(currentCartDetail.getQuanlity() + 1);
                 }
@@ -76,4 +77,32 @@ public class ProductService {
         }
 
     }
+
+    public List<CartDetail> getAllProductInCart(String email) {
+        User user = this.userService.getUserByEmail(email);
+        Cart cart = this.cartRepository.getCartByUser(user);
+        return this.cartDetailRepository.findCartDetailByCart(cart);
+    }
+
+    public void deleteCartDetailById(long id) {
+        CartDetail currentCartDetail = this.cartDetailRepository.findCartDetailById(id);
+
+        if (currentCartDetail != null) {
+            // 2. Lấy ra cái Giỏ hàng chứa món đồ này
+            Cart currentCart = currentCartDetail.getCart();
+
+            // 3. XÓA MÓN ĐỒ (CartDetail)
+            this.cartDetailRepository.deleteById(id);
+
+            // 4. CẬP NHẬT LẠI TỔNG SỐ LƯỢNG CỦA GIỎ HÀNG (Trừ đi 1)
+            if (currentCart.getSum() > 0) {
+                currentCart.setSum(currentCart.getSum() - 1);
+                this.cartRepository.save(currentCart); // Lưu lại số sum mới vào DB
+            }
+            
+        }
+    }
+
+
 }
+

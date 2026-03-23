@@ -1,5 +1,6 @@
 package com.example.Project2.web.admin;
 
+import com.example.Project2.domain.CartDetail;
 import com.example.Project2.domain.Product;
 import com.example.Project2.domain.User;
 import com.example.Project2.service.Product.ProductService;
@@ -104,4 +105,27 @@ public class ProductController {
         model.addAttribute("sum", session.getAttribute("sum"));
         return "redirect:/";
     }
+
+    @GetMapping("/full-cart")
+    public String showFullCart(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+
+        List<CartDetail> cart = this.productService.getAllProductInCart(email);
+
+        double totalPrice = 0;
+        for (CartDetail i : cart) {
+            totalPrice += i.getPrice() * i.getQuanlity();
+        }
+        model.addAttribute("carts", cart);
+        model.addAttribute("total", totalPrice);
+        return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-item/{id}")
+    public String deleteProductInCart(@PathVariable long id) {
+        this.productService.deleteCartDetailById(id);
+        return "redirect:/full-cart";
+    }
+
 }

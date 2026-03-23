@@ -60,7 +60,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                        .requestMatchers("/add-product-to-cart/**").hasRole("USER")
+                        .requestMatchers("/add-product-to-cart/**", "/full-cart").hasRole("USER")
                         .anyRequest().authenticated())
                 .rememberMe((rememberMe) -> rememberMe
                         .rememberMeServices(rememberMeServices())
